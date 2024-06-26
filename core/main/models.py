@@ -1,13 +1,12 @@
-# dishsearch/models.py
 from django.db import models
 import json
 
 class Dish(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
     location = models.CharField(max_length=255, null=True, blank=True)
-    items = models.JSONField(null=True, blank=True)  # Use JSONField to store JSON data
+    items = models.JSONField(null=True, blank=True) 
     lat_long = models.CharField(max_length=255, null=True, blank=True)
-    full_details = models.JSONField(null=True, blank=True)  # Use JSONField to store JSON data
+    full_details = models.JSONField(null=True, blank=True)  
 
     def __str__(self):
         return self.name

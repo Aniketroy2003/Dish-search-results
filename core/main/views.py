@@ -1,4 +1,3 @@
-# dishsearch/views.py
 from django.shortcuts import render
 from django.db.models import Q
 from .models import Dish
@@ -33,12 +32,12 @@ def recommend_best_matches(query):
     tfidf_vectorizer = TfidfVectorizer(analyzer='word', ngram_range=(1, 3), min_df=1, stop_words='english')
     tfidf_matrix = tfidf_vectorizer.fit_transform(dish_names)
 
-    # Calculate cosine similarity
+    # cosine similarity calculation
     cosine_similarities = linear_kernel(tfidf_matrix, tfidf_vectorizer.transform([query]))
 
-    # Get indices of top recommendations
+    # indices of top recommendations
     indices = cosine_similarities.argsort().flatten()
-    top_indices = indices[-5:][::-1]  # Get top 5 recommendations
+    top_indices = indices[-5:][::-1]  # top 5 recommendations
 
     # Fetch recommended dishes
     recommended_results = [dishes[i] for i in top_indices if cosine_similarities[i] > 0]
