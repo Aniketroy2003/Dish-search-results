@@ -1,0 +1,61 @@
+<!-- dishsearch/templates/dishsearch/search_results.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dish Search Results</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+        }
+        .result {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .result h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .result p {
+            margin-bottom: 5px;
+        }
+        .highlight {
+            background-color: #ffff99;
+            padding: 2px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="mb-4">Search Results</h1>
+    <form class="form-inline mb-4">
+        <input type="text" name="q" class="form-control mr-sm-2" placeholder="Search dishes" value="{{ query }}">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    {% if results %}
+        <div class="row">
+            {% for dish in results %}
+                <div class="col-md-6">
+                    <div class="result">
+                        <h3 {% if dish == results.0 %}class="highlight"{% endif %}>{{ dish.name }}</h3>
+                        <p><strong>Location:</strong> {{ dish.full_details.location.address }}</p>
+                        <p><strong>Items:</strong></p>
+                        <ul>
+                            {% for item, price in dish.items.items %}
+                                <li>{{ item }} - Rs. {{ price }}</li>
+                            {% endfor %}
+                        </ul>
+                        <p><strong>Latitude-Longitude:</strong> {{ dish.lat_long }}</p>
+                        <p><strong>Rating:</strong> {{ dish.full_details.user_rating.aggregate_rating }}* ({{dish.full_details.user_rating.votes}})</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No dishes found.</p>
+    {% endif %}
+</body>
+</html>
