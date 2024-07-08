@@ -8,7 +8,7 @@ class Command(BaseCommand):
     help = 'Import dish details from CSV'
 
     def handle(self, *args, **kwargs):
-        file_path = 'main/restaurants_small.csv'  # Adjust this path as per your file location
+        file_path = 'main/restaurants_small.csv' 
 
         with open(file_path, 'r', encoding='utf-8') as f:
             reader = csv.DictReader(f)
