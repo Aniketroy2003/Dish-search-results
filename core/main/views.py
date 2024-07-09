@@ -19,7 +19,9 @@ def search_dishes(request):
 
         # Recommend best matches based on similarity
         recommended_results = recommend_best_matches(query)
+        
         results = list(set(results) | set(recommended_results))
+    print(results)
 
     return render(request, 'search_results.html', {'results': results, 'query': query})
 
